@@ -23,31 +23,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-        .eraseCredentials(false)
-        .userDetailsService(userDetailsService)
-        .passwordEncoder(new CustomPasswordEncoder());
+                .eraseCredentials(false)
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(new CustomPasswordEncoder());
     }
 
     @Override
     @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic()
-            .authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint("basic"))
-            .and().authorizeRequests()
-            .antMatchers(
-                    "/"
-                    , "/views/**"
-                    , "/scripts/**"
-                    , "/styles/**"
-                    , "/images/**"
-                    , "/api/tools/**"
-            ).permitAll()
-            .anyRequest().authenticated()
-            .and().formLogin().loginPage("/")
-            .and().addFilterAfter(new CustomCsrfHeaderFilter(), CsrfFilter.class)
-            .logout().permitAll()
-            .and().csrf().csrfTokenRepository(CustomCsrfTokenRepository.get())
-            .and().exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler());
+                .authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint("basic"))
+                .and().authorizeRequests()
+                .antMatchers(
+                        "/"
+                        , "/views/**"
+                        , "/scripts/**"
+                        , "/styles/**"
+                        , "/images/**"
+                        , "/webjars/**"
+                        , "/rest/api/auth/**"
+                ).permitAll()
+                .anyRequest().authenticated()
+                .and().formLogin().loginPage("/")
+                .and().addFilterAfter(new CustomCsrfHeaderFilter(), CsrfFilter.class)
+                .logout().permitAll()
+                .and().csrf().csrfTokenRepository(CustomCsrfTokenRepository.get())
+                .and().exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler());
     }
 
 

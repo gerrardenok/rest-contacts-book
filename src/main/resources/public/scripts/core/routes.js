@@ -5,15 +5,18 @@
     cfg.$inject = [
         '$stateProvider'
         , '$urlRouterProvider'
+        , '$locationProvider'
     ];
 
-    function cfg($stateProvider, $urlRouterProvider){
+    function cfg($stateProvider, $urlRouterProvider, $locationProvider){
+
+        //$locationProvider.html5Mode(true);
 
         $urlRouterProvider.otherwise('/not_found');
 
         $urlRouterProvider
             .when('/', '/home')
-            .when('', '/login');
+            .when('', '/auth');
 
         // ------------------------------------- //
         // --------------Root------------------- //
@@ -51,10 +54,10 @@
         });
 
         $stateProvider.state('root.public.login', {
-            url: '/login'
+            url: '/auth'
             , views: {
                 'root@': {
-                    controller: 'LoginPageCtrl', templateUrl: '/views/pages/login.html'
+                    controller: 'AuthPageCtrl', templateUrl: '/views/pages/auth.html'
                 }
             }
         });

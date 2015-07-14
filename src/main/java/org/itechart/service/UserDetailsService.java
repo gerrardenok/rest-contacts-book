@@ -33,6 +33,8 @@ public class UserDetailsService implements org.springframework.security.core.use
 
         List<org.itechart.domain.User> result = userRepository.findByEmail(email);
 
+        System.out.println("result:" + result.size());
+
         if(result.isEmpty()) {
             throw new UsernameNotFoundException("User with email not found");
         } else {

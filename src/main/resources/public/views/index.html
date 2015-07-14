@@ -5,51 +5,47 @@
     <base href="/">
 
     <!--BEGIN VENDORS STYLES-->
-    <link rel="stylesheet" href="/styles/vendors/bootstrap.css"/>
-    <link rel="stylesheet" href="/styles/vendors/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
     <!--END VENDORS STYLES-->
 
+    <!--BEGIN APP STYLES-->
+    <link rel="stylesheet" href="/styles/core/auth.css"/>
+    <!--END APP STYLES-->
+
     <!--BEGIN VENDORS SCRIPTS-->
-    <script type="text/javascript" src="/scripts/vendors/jquery-2.1.4.js"></script>
-    <script type="text/javascript" src="/scripts/vendors/bootstrap.js"></script>
+    <script type="text/javascript" src="/webjars/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript" src="/scripts/vendors/angular.js"></script>
-    <script type="text/javascript" src="/scripts/vendors/angular-ui-router.js"></script>
-    <script type="text/javascript" src="/scripts/vendors/angular-resource.js"></script>
+    <script type="text/javascript" src="/webjars/angularjs/1.4.2/angular.min.js"></script>
+    <script type="text/javascript" src="/webjars/angularjs/1.4.2/angular-resource.min.js"></script>
+    <script type="text/javascript" src="/webjars/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+    <script type="text/javascript" src="/webjars/angular-ui-bootstrap/0.13.0/ui-bootstrap.min.js"></script>
+    <script type="text/javascript" src="/webjars/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
     <!--END VENDORS SCRIPTS-->
-
-    <!--BEGIN UTILS SCRIPTS-->
-    <script type="text/javascript" src="/scripts/utils/date.js"></script>
-    <!--END UTILS SCRIPTS-->
 
     <!--BEGIN APP SCRIPTS-->
     <script type="text/javascript" src="/scripts/core/app.js"></script>
     <script type="text/javascript" src="/scripts/core/routes.js"></script>
     <script type="text/javascript" src="/scripts/core/interceptors.js"></script>
 
-    <script type="text/javascript" src="/scripts/core/services/auth.js"></script>
+    <script type="text/javascript" src="/scripts/core/services/AuthService.js"></script>
 
-    <script type="text/javascript" src="/scripts/core/resources/user.js"></script>
+    <script type="text/javascript" src="/scripts/core/resources/UserResource.js"></script>
 
-    <script type="text/javascript" src="/scripts/core/controllers/global.js"></script>
-    <script type="text/javascript" src="/scripts/core/controllers/header.js"></script>
-    <script type="text/javascript" src="/scripts/core/controllers/login.js"></script>
+    <script type="text/javascript" src="/scripts/core/controllers/GlobalCtrl.js"></script>
+    <script type="text/javascript" src="/scripts/core/controllers/HeaderCtrl.js"></script>
+    <script type="text/javascript" src="/scripts/core/controllers/AuthPageCtrl.js"></script>
 
+    <script type="text/javascript" src="/scripts/core/directives/CheckEmailDir.js"></script>
+    <script type="text/javascript" src="/scripts/core/directives/EqualsDir.js"></script>
     <!--END APP SCRIPTS-->
 
     <title>Itechart contacts-book</title>
 </head>
 <body data-ng-controller="GlobalCtrl">
 
-    <div class="bsuir-body container">
-
-        <div class="bsuir-header row" data-ng-include="'/views/common/header.html'"></div>
-
-        <div data-ui-view="root"></div>
-
-    </div>
-
-    <div class="container bsuir-footer" data-ng-include="'/views/common/footer.html'"></div>
+    <div data-ui-view="root"></div>
 
 </body>
 </html>

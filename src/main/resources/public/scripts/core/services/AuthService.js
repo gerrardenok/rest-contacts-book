@@ -57,6 +57,15 @@
             return defer.promise;
         };
 
+        service.registerUser = function(userName, email, password) {
+            return $http.post('/rest/api/auth/registration', {
+                "email": email,
+                "userName": userName,
+                "password": password
+            });
+        };
+
+
         function httpBasicHeaders(userName, password){
             return {authorization: "Basic "+btoa(userName+":"+password)}
         }
@@ -64,7 +73,6 @@
         function checkAuthSuccess(response){
             $rootScope.GLOBALS.authenticated = true;
             $rootScope.GLOBALS.currentUser = response.data;
-            $rootScope.GLOBALS.currentCard = $rootScope.GLOBALS.currentUser.cards[0];
             return response.data;
         }
 

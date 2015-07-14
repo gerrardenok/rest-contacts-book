@@ -1,0 +1,156 @@
+<div class="row">
+
+    <br/><br/>
+    <br/><br/>
+
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-login">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a data-ng-click="activateLoginForm()"
+                           data-ng-class="{active: isLoginFormActivate()}"
+                           href="#" id="login-form-link">Login</a>
+                    </div>
+                    <div class="col-xs-6">
+                        <a data-ng-click="activateRegistrationForm()"
+                           data-ng-class="{active: isRegistrationFormActivate()}"
+                           href="#" id="register-form-link" class="">Register</a>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <!--START LOGIN FORM-->
+                        <form name="loginForm" data-ng-submit="submitLogin()" data-ng-show="isLoginFormActivate()" id="login-form" role="form">
+                            <div class="form-group" data-ng-class="{
+                                    'has-success':loginForm.email.$valid
+                                    , 'has-error':loginForm.email.$invalid
+                                }" >
+                                <input data-ng-model="loginData.email"
+                                       data-ng-maxlengh="255"
+                                       required="required"
+                                       type="email" name="email" id="loginEmail" tabindex="1" class="form-control" placeholder="Email" value="">
+                            </div>
+
+                            <div class="form-group" data-ng-class="{
+                                'has-success':loginForm.password.$valid
+                                , 'has-error': wrongCreds || loginForm.password.$invalid
+                            }">
+                                <input type="password"
+                                       name="password"
+                                       data-ng-model="loginData.password"
+                                       data-ng-maxlengh="255"
+                                       required="required"
+                                       class="form-control"
+                                       id="loginPassword"
+                                       placeholder="Password"
+                                       tabindex="2">
+                                <span data-ng-if="wrongCreds" class="help-block">Wrong credentials. Please try another.</span>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+                                <label for="remember"> Remember Me</label>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6 col-sm-offset-3">
+                                        <input data-ng-disabled="loginForm.$invalid"
+                                               type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="text-center">
+                                            <a href="http://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!--END LOGIN FORM-->
+
+                        <!--START REGISTER FORM-->
+                        <form name="registrationForm" data-ng-submit="submitRegistration()" data-ng-show="isRegistrationFormActivate()" id="register-form" role="form">
+                            <div class="form-group"  data-ng-class="{
+                                    'has-success':registrationForm.userName.$valid
+                                    , 'has-error':registrationForm.userName.$invalid
+                                }">
+                                <input type="text"
+                                       data-ng-model="registrationData.userName"
+                                       data-ng-maxlengh="255"
+                                       required="required"
+                                       name="userName" id="userName" tabindex="1" class="form-control" placeholder="Username" value="">
+                            </div>
+
+                            <div class="form-group" data-ng-class="{
+                                    'has-success':registrationForm.email.$valid
+                                    , 'has-error':registrationForm.email.$invalid
+                                }" >
+                                <input data-ng-model="registrationData.email"
+                                       data-check-email-dir
+                                       data-ng-maxlengh="255"
+                                       required="required"
+                                       type="email" name="email" id="email" tabindex="2" class="form-control" placeholder="Email" value="">
+                                <span data-ng-if="registrationForm.email.$error.unique" class="help-block">This email already used in app.</span>
+
+                            </div>
+
+                            <div class="form-group" data-ng-class="{
+                                'has-success':registrationForm.password.$valid
+                                , 'has-error': registrationForm.password.$invalid
+                            }">
+                                <input  data-ng-model="registrationData.password"
+                                        data-equals-dir="registrationData.confirmPassword"
+                                        data-ng-maxlengh="255"
+                                        required="required"
+                                        type="password"
+                                        name="password"
+                                        class="form-control"
+                                        id="password"
+                                        placeholder="Password"
+                                        tabindex="3">
+                            </div>
+
+                            <div  class="form-group" data-ng-class="{
+                                'has-success':registrationForm.confirmPassword.$valid
+                                , 'has-error': registrationForm.confirmPassword.$invalid
+                            }">
+                                <input data-ng-model="registrationData.confirmPassword"
+                                       data-equals-dir="registrationData.password"
+                                       data-ng-maxlengh="255"
+                                       type="password"
+                                       name="confirmPassword"
+                                       id="confirm-password" tabindex="4" class="form-control" placeholder="Confirm Password">
+
+                                <span data-ng-if="registrationForm.password.$error.equals || registrationForm.confirmPassword.$error.equals " class="help-block">
+                                    Passwords not match.
+                                </span>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6 col-sm-offset-3">
+                                        <input data-ng-disabled="registrationForm.$invalid"
+                                               type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!--END REGISTER FORM-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

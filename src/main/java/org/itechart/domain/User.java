@@ -1,26 +1,34 @@
 package org.itechart.domain;
 
+import org.hibernate.validator.constraints.Email;
+import org.itechart.web.resource.UserResource;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User extends AngularEntity<User, UserResource> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @NotNull
+    @Size(max = 255)
     private String userName;
 
     @NotNull
+    @Email
+    @Size(max = 255)
     private String email;
 
     @NotNull
+    @Size(max = 255)
     private String password;
 
     @NotNull
@@ -98,5 +106,20 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    @Override
+    public UserResource toResource() {
+        UserResource resouce = new UserResource();
+        resouce.fill(this);
+        return resouce;
+    }
+
+    @Override
+    public User merge(UserResource resource) {
+        setEmail(resource.email);
+        setUserName(resource.userName);
+        setPassword(resource.password);
+        return this;
     }
 }

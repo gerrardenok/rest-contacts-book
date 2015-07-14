@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ApplicationController {
 
-    @RequestMapping(value="/", method=RequestMethod.GET)
-    public String defaultPage(Model model) {
+    @RequestMapping(value = "/")
+    public String baseTemplate(Model model) {
         return "forward:/views/index.html";
     }
 

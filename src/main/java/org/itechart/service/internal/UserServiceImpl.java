@@ -5,7 +5,7 @@ import org.itechart.domain.UserRole;
 import org.itechart.repository.UserRepository;
 import org.itechart.repository.UserRoleRepository;
 import org.itechart.service.UserService;
-import org.itechart.web.form.UserForm;
+import org.itechart.web.resource.UserResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,8 +20,8 @@ public class UserServiceImpl implements UserService {
     private UserRoleRepository userRoleRepository;
 
     @Override
-    public User createUser(String email, String password, Boolean isAdmin, Long score) {
-        User user = new User("", email, password);
+    public User createUser(String userName, String email, String password,  Boolean isAdmin) {
+        User user = new User(userName, email, password);
         user = userRepository.save(user);
         userRoleRepository.save(new UserRole(user, "normal_user"));
         if (isAdmin) {
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(User model, UserForm form) {
+    public User update(User model, UserResource form) {
         model.setUserName(form.userName);
         model.setEmail(form.email);
         model.setPassword(form.password);
@@ -52,6 +52,11 @@ public class UserServiceImpl implements UserService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails details = (UserDetails) authentication.getPrincipal();
         return userRepository.findTopByEmailAndPasswordAndEnabled(details.getUsername(), details.getPassword(), true);
+    }
+
+    @Override
+    public boolean isEmailUnique(String email) {
+        return userRepository.findByEmail(email).size() == 0;
     }
 
 }
