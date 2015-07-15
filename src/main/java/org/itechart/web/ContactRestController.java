@@ -2,11 +2,9 @@ package org.itechart.web;
 
 import org.itechart.domain.Contact;
 import org.itechart.domain.User;
-import org.itechart.exceptions.EmailNotUniqueException;
 import org.itechart.repository.ContactRepository;
 import org.itechart.service.UserService;
 import org.itechart.web.resource.ContactResource;
-import org.itechart.web.resource.ScalarResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -39,10 +37,10 @@ public class ContactRestController extends AngularResourceController<Contact, Co
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     @Secured("normal_user")
-    public Page<ContactResource> list(@RequestParam(value="page", defaultValue = "0") String pageNum, @RequestParam(value="size", defaultValue = "20") String pageSize) {
+    public Page<ContactResource> list(@RequestParam(value="page", defaultValue = "0") String pageNum, @RequestParam(value="size", defaultValue = "10") String pageSize) {
         Pageable request = new PageRequest(Integer.parseInt(pageNum), Integer.parseInt(pageSize));
         User currentUser = userService.getLoggedIn();
-        Page<Contact> page = contactRepository.findByUserId(currentUser.getId(), request);
+        Page<Contact> page = contactRepository.findByUserIdOrderByIdDesc(currentUser.getId(), request);
         return ContactResource.transform(page);
     }
 }

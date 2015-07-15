@@ -4,6 +4,7 @@
         'rest-contacts-book', [
             'ui.router'
             , 'ngResource'
+            , 'ui.bootstrap'
         ]
     ).run(run);
 

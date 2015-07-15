@@ -10,13 +10,12 @@
 
     function ctrl($scope, ContactResource, $log) {
 
-        load();
-
         // ------------------- //
 
-        function load() {
-            ContactResource.page().then(function(data){
-                $scope.contacts = data;
+        function load(params) {
+            ContactResource.page(params).then(function(data){
+                $scope.contacts = data.items;
+                $scope.pagingOptions.totalItems = data.total;
             })
         }
 
@@ -60,6 +59,27 @@
         $scope.editCancel = function(resource) {
             resource.viewEdit = false;
         };
+
+        // ------------------------- //
+
+        $scope.pagingOptions = {
+            currentPage: 1,
+            totalItems: null,
+            pageSize: 10
+        };
+
+        $scope.$watch('pagingOptions', function(newVal, oldVal) {
+            if(newVal !== oldVal) {
+                if(newVal.pageSize !== oldVal.pageSize || newVal.currentPage !== oldVal.currentPage) {
+                    load({page: $scope.pagingOptions.currentPage-1, size: $scope.pagingOptions.pageSize});
+                }
+            }
+
+        }, true);
+
+        // ------------------------- //
+
+        load();
 
     }
 

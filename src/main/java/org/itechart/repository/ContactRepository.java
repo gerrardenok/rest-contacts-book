@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface ContactRepository extends CrudRepository<Contact, Long> {
 
-    Page<Contact> findByUserId(Long userId, Pageable pageable);
+    Page<Contact> findByUserIdOrderByIdDesc(Long userId, Pageable pageable);
 
     Page<Contact> findByUserIdAndNameOrTel(Long userId, String name, String tel, Pageable pageable);
 

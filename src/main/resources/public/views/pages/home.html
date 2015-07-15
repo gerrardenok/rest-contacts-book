@@ -6,7 +6,7 @@
             <div style="margin-bottom: 10px">
                 <button data-ng-if="!concatToSave"
                         data-ng-click="addContact()"
-                        class="btn btn-default">Add New Contact</button>
+                        class="btn btn-info">Add New Contact</button>
                 <div data-ng-if="concatToSave">
                     <contact-form resource="concatToSave" save-cb="addSave(resource)" cancel-cb="addCancel(resource)"></contact-form>
                 </div>
@@ -17,19 +17,18 @@
 
             <ul class="list-group">
 
-                <li data-ng-repeat="contact in contacts" class="list-group-item">
+                <li data-ng-if="contacts.length"
+                    data-ng-repeat="contact in contacts" class="list-group-item">
 
                     <div data-ng-if="!contact.viewEdit">
                         <span>Name:</span>
-                        <span>{{contact.name}}</span>
+                        <b>{{contact.name}}</b>
                         <span> | </span>
                         <span>Telephone:</span>
-                        <span>{{contact.tel}}</span>
+                        <i>{{contact.tel}}</i>
 
                         <button data-ng-click="editContact(contact)" class="btn btn-default">Edit</button>
-                        <button data-ng-click="deleteContact(contact)" class="btn btn-default">Delete</button>
-
-
+                        <button data-ng-click="deleteContact(contact)" class="btn btn-danger">Delete</button>
                     </div>
 
                     <div data-ng-if="contact.viewEdit">
@@ -38,10 +37,15 @@
 
                 </li>
 
-                <li class="list-group-item">
+                <li data-ng-if="!contacts.length" class="list-group-item text-center">
+                    You have no contacts.
                 </li>
 
             </ul>
+
+            <div data-ng-if="pagingOptions.totalItems > contacts.length">
+                <pagination total-items="pagingOptions.totalItems" ng-model="pagingOptions.currentPage"></pagination>
+            </div>
 
         </div>
     </div>

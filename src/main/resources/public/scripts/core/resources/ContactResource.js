@@ -10,8 +10,14 @@
             update: { method: 'PUT', url: '/rest/api/contact/:id' }
         });
 
-        ModelClass.page = function() {
-            return $http.get('/rest/api/contact/search').then(
+        ModelClass.page = function(params) {
+            return $http(
+                {
+                    url: '/rest/api/contact/search',
+                    method: "GET",
+                    params: params || {}
+                }
+            ).then(
                 function(response) {
                     var out = [];
                     if(!response.data.content) {
@@ -21,7 +27,10 @@
                             out.push(new ModelClass(e));
                         })
                     }
-                    return out;
+                    return {
+                        items: out,
+                        total: response.data.totalElements
+                    };
                 },
                 function(e) {
                     return $q.reject(e);
