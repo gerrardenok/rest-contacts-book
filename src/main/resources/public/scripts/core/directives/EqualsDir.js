@@ -17,7 +17,6 @@
 
                     //get the value of the other password
                     var e2 = scope.$eval(attrs.equalsDir);
-                    console.log(e1, "==", e2);
                     return e1 == e2;
                 };
                 scope.$watch(checker, function (n) {

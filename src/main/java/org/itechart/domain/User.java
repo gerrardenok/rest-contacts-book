@@ -6,9 +6,7 @@ import org.itechart.web.resource.UserResource;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -37,6 +35,9 @@ public class User extends AngularEntity<User, UserResource> {
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy = "user")
     private Set<UserRole> userRoles = new HashSet<UserRole>(0);
 
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy = "user")
+    private List<Contact> contacts;
+
     @Temporal(TemporalType.TIMESTAMP)
     @NotNull
     private Date modified;
@@ -49,6 +50,7 @@ public class User extends AngularEntity<User, UserResource> {
         this.email = email;
         this.password = password;
         this.enabled = true;
+        this.contacts = new ArrayList<Contact>();
         this.modified = new Date();
     }
 
@@ -107,6 +109,15 @@ public class User extends AngularEntity<User, UserResource> {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
 
     @Override
     public UserResource toResource() {

@@ -84,7 +84,8 @@
             url: '/home'
             , views: {
                 'content@root.secured': {
-                    templateUrl: '/views/pages/home.html'
+                    templateUrl: '/views/pages/home.html',
+                    controller: 'HomeCtl'
                 }
             }
         });
