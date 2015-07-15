@@ -4,9 +4,14 @@ Simple REST app for managing persons contacts (www.itechart.com)
 
 ## Raw requirements 
 
-> ���������� ����������� ���������� - ���������� ����� ���������.
-������ ���������� ������ ��������� ������������ ����������������, ���������� � ������������ CRUD �������� � ����������.
-����������: rest api, angular.js. ��� ��������� �� ���� ����������.
+> Необходимо реализовать приложение - простейшую книгу контактов.
+Данное приложение должно позволять пользователю регистрироваться, логиниться и осуществлять CRUD операции с контактами.
+Требования: rest api, angular.js. Все остальное на ваше усмотрение.
+
+## Install
+* setup db config in ./build/run.bat
+* start run.bat
+
 
 ## Enviroment requirements
 
@@ -28,5 +33,5 @@ Simple REST app for managing persons contacts (www.itechart.com)
 * BE: Gulp build tasks
 * ENV: Docker
 
-         
+
    
