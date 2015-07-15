@@ -2,6 +2,7 @@ package org.itechart.web;
 
 import org.itechart.domain.AngularEntity;
 import org.itechart.exceptions.EntityNotFoundException;
+import org.itechart.service.UserService;
 import org.itechart.web.resource.AngularResource;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,10 @@ public abstract class AngularResourceController<
         Resource extends AngularResource<Entity>,
         Repository extends CrudRepository<Entity, Long>>  {
 
+
     protected abstract Repository getEntityRepository();
+
+    protected abstract UserService getUserService();
 
     @RequestMapping(value = "/{id:[\\d]+}", method = RequestMethod.GET)
     @Secured("normal_user")
@@ -51,7 +55,7 @@ public abstract class AngularResourceController<
     }
 
     protected Resource doCreate(Resource body) {
-        Entity e = body.toEntity();
+        Entity e = body.buildEntity(getUserService().getLoggedIn());
         e = getEntityRepository().save(e);
         return e.toResource();
     }

@@ -17,9 +17,17 @@ public class UserRestController extends AngularResourceController<User, UserReso
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     protected UserRepository getEntityRepository() {
         return userRepository;
     }
-    
+
+    @Override
+    protected UserService getUserService() {
+        return userService;
+    }
+
 }

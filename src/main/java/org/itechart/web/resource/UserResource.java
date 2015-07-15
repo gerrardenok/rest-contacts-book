@@ -28,7 +28,7 @@ public class UserResource extends AngularResource<User> {
     }
 
     @Override
-    public User toEntity() {
+    public User buildEntity(User user) {
         User u = new User();
         u.setId(id);
         u.setUserName(this.userName);

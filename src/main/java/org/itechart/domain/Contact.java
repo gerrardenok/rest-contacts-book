@@ -33,12 +33,14 @@ public class Contact extends AngularEntity<Contact, ContactResource> {
         ContactResource resource = new ContactResource();
         resource.id = getId();
         resource.tel = getTel();
+        resource.name = getName();
         return resource;
     }
 
     @Override
     public Contact merge(ContactResource resource) {
         setTel(resource.tel);
+        setName(resource.name);
         return this;
     }
 

@@ -32,6 +32,11 @@ public class ContactRestController extends AngularResourceController<Contact, Co
         return contactRepository;
     }
 
+    @Override
+    protected UserService getUserService() {
+        return userService;
+    }
+
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     @Secured("normal_user")
     public Page<ContactResource> list(@RequestParam(value="page", defaultValue = "0") String pageNum, @RequestParam(value="size", defaultValue = "20") String pageSize) {

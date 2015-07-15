@@ -3,8 +3,44 @@
     <div class="row">
         <div class="col-md-12">
 
+            <div style="margin-bottom: 10px">
+                <button data-ng-if="!concatToSave"
+                        data-ng-click="addContact()"
+                        class="btn btn-default">Add New Contact</button>
+                <div data-ng-if="concatToSave">
+                    <contact-form resource="concatToSave" save-cb="addSave(resource)" cancel-cb="addCancel(resource)"></contact-form>
+                </div>
+            </div>
+
+            <p class="clearfix">
+            </p>
+
             <ul class="list-group">
-                <li data-ng-repeat="contact in contacts" class="list-group-item">{{contact.name}}</li>
+
+                <li data-ng-repeat="contact in contacts" class="list-group-item">
+
+                    <div data-ng-if="!contact.viewEdit">
+                        <span>Name:</span>
+                        <span>{{contact.name}}</span>
+                        <span> | </span>
+                        <span>Telephone:</span>
+                        <span>{{contact.tel}}</span>
+
+                        <button data-ng-click="editContact(contact)" class="btn btn-default">Edit</button>
+                        <button data-ng-click="deleteContact(contact)" class="btn btn-default">Delete</button>
+
+
+                    </div>
+
+                    <div data-ng-if="contact.viewEdit">
+                        <contact-form resource="contact" save-cb="editSave(resource)" cancel-cb="editCancel(resource)"></contact-form>
+                    </div>
+
+                </li>
+
+                <li class="list-group-item">
+                </li>
+
             </ul>
 
         </div>

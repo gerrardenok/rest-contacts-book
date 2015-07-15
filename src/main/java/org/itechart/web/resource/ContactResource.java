@@ -1,6 +1,7 @@
 package org.itechart.web.resource;
 
 import org.itechart.domain.Contact;
+import org.itechart.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -39,11 +40,11 @@ public class ContactResource extends AngularResource<Contact> {
     }
 
     @Override
-    public Contact toEntity() {
+    public Contact buildEntity(User user) {
         Contact contact = new Contact();
-        contact.setId(this.id);
-        contact.setTel(this.tel);
+        contact.setUser(user);
         contact.setName(this.name);
+        contact.setTel(this.tel);
         return contact;
     }
 }
