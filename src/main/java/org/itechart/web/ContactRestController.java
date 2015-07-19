@@ -2,6 +2,7 @@ package org.itechart.web;
 
 import org.itechart.domain.Contact;
 import org.itechart.domain.User;
+import org.itechart.exceptions.EntityNotFoundException;
 import org.itechart.repository.ContactRepository;
 import org.itechart.service.UserService;
 import org.itechart.web.resource.ContactResource;
@@ -35,12 +36,19 @@ public class ContactRestController extends AngularResourceController<Contact, Co
         return userService;
     }
 
+    @Override
+    protected Contact findOne(Long id) {
+        return contactRepository.findByIdAndUserId(id, userService.getLoggedIn().getId());
+    }
+
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     @Secured("normal_user")
-    public Page<ContactResource> list(@RequestParam(value="page", defaultValue = "0") String pageNum, @RequestParam(value="size", defaultValue = "10") String pageSize) {
+    public Page<ContactResource> list(@RequestParam(value="filter", defaultValue = "%") String filter,
+                                      @RequestParam(value="page", defaultValue = "0") String pageNum,
+                                      @RequestParam(value="size", defaultValue = "10") String pageSize) {
         Pageable request = new PageRequest(Integer.parseInt(pageNum), Integer.parseInt(pageSize));
         User currentUser = userService.getLoggedIn();
-        Page<Contact> page = contactRepository.findByUserIdOrderByIdDesc(currentUser.getId(), request);
+        Page<Contact> page = contactRepository.findByUserIdAndNameLikeOrTelLikeOrderByModifiedDesc(currentUser.getId(), filter, filter, request);
         return ContactResource.transform(page);
     }
 }

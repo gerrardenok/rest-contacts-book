@@ -4,6 +4,7 @@ import org.itechart.web.resource.ContactResource;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
 @Table(name = "user_contacts")
@@ -24,6 +25,10 @@ public class Contact extends AngularEntity<Contact, ContactResource> {
     @NotNull
     @Size(max = 255)
     private String tel;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
+    private Date modified;
 
     public Contact() {
     }
@@ -74,5 +79,13 @@ public class Contact extends AngularEntity<Contact, ContactResource> {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setModified(Date modified) {
+        this.modified = modified;
+    }
+
+    public Date getModified() {
+        return modified;
     }
 }

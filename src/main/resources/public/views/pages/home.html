@@ -1,50 +1,9 @@
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
 
-            <div style="margin-bottom: 10px">
-                <button data-ng-if="!concatToSave"
-                        data-ng-click="addContact()"
-                        class="btn btn-info">Add New Contact</button>
-                <div data-ng-if="concatToSave">
-                    <contact-form resource="concatToSave" save-cb="addSave(resource)" cancel-cb="addCancel(resource)"></contact-form>
-                </div>
-            </div>
-
-            <p class="clearfix">
-            </p>
-
-            <ul class="list-group">
-
-                <li data-ng-if="contacts.length"
-                    data-ng-repeat="contact in contacts" class="list-group-item">
-
-                    <div data-ng-if="!contact.viewEdit">
-                        <span>Name:</span>
-                        <b>{{contact.name}}</b>
-                        <span> | </span>
-                        <span>Telephone:</span>
-                        <i>{{contact.tel}}</i>
-
-                        <button data-ng-click="editContact(contact)" class="btn btn-default">Edit</button>
-                        <button data-ng-click="deleteContact(contact)" class="btn btn-danger">Delete</button>
-                    </div>
-
-                    <div data-ng-if="contact.viewEdit">
-                        <contact-form resource="contact" save-cb="editSave(resource)" cancel-cb="editCancel(resource)"></contact-form>
-                    </div>
-
-                </li>
-
-                <li data-ng-if="!contacts.length" class="list-group-item text-center">
-                    You have no contacts.
-                </li>
-
-            </ul>
-
-            <div data-ng-if="pagingOptions.totalItems > contacts.length">
-                <pagination total-items="pagingOptions.totalItems" ng-model="pagingOptions.currentPage"></pagination>
+            <div data-ng-include="'/views/common/contactList.html'">
+                <div data-ng-include="'/views/common/loader.html'"></div>
             </div>
 
         </div>

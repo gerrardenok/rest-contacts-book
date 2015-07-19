@@ -5,10 +5,9 @@
     cfg.$inject = [
         '$stateProvider'
         , '$urlRouterProvider'
-        , '$locationProvider'
     ];
 
-    function cfg($stateProvider, $urlRouterProvider, $locationProvider){
+    function cfg($stateProvider, $urlRouterProvider){
 
         //$locationProvider.html5Mode(true);
 

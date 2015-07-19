@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ContactResource extends AngularResource<Contact> {
@@ -45,6 +46,7 @@ public class ContactResource extends AngularResource<Contact> {
         contact.setUser(user);
         contact.setName(this.name);
         contact.setTel(this.tel);
+        contact.setModified(new Date());
         return contact;
     }
 }

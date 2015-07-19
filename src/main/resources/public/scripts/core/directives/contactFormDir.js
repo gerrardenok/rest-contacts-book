@@ -10,9 +10,10 @@
             scope: {
                 'resource': '=resource',
                 'saveCb': '&saveCb',
-                'cancelCb': '&cancelCb'
+                'cancelCb': '&cancelCb',
+                'loading': '=loading'
             },
-            templateUrl: '/views/common/contactForm.html'
+            templateUrl: '/views/directives/contactForm.html'
         };
     }
 
