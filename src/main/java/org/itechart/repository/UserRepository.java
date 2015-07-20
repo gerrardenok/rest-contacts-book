@@ -11,6 +11,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     public List<User> findByEmail(String email);
 
-    public User findTopByEmailAndPasswordAndEnabled(String email, String password, boolean enabled);
+    public User findTopByEmailAndEnabled(String email, boolean enabled);
 
 }

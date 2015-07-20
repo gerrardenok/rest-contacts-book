@@ -11,6 +11,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -22,11 +25,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(String userName, String email, String password,  Boolean isAdmin) {
         User user = new User(userName, email, password);
+        Set<UserRole> roles = new HashSet<UserRole>();
+        roles.add(new UserRole(user, "normal_user"));
+        user.setUserRoles(roles);
         user = userRepository.save(user);
-        userRoleRepository.save(new UserRole(user, "normal_user"));
-        if (isAdmin) {
-            userRoleRepository.save(new UserRole(user, "admin"));
-        }
         return user;
     }
 
@@ -51,7 +53,7 @@ public class UserServiceImpl implements UserService {
     public User getLoggedIn() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails details = (UserDetails) authentication.getPrincipal();
-        return userRepository.findTopByEmailAndPasswordAndEnabled(details.getUsername(), details.getPassword(), true);
+        return userRepository.findTopByEmailAndEnabled(details.getUsername(), true);
     }
 
     @Override
