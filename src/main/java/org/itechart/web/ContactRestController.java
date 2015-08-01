@@ -50,7 +50,7 @@ public class ContactRestController extends AngularResourceController<Contact, Co
         System.out.println("------------------------------------");
         System.out.println("currentUser.getId():" + currentUser.getId());
         System.out.println("------------------------------------");
-        Page<Contact> page = contactRepository.findByUserIdAndNameLikeOrderByModifiedDesc(currentUser.getId(), filter, request);
+        Page<Contact> page = contactRepository.search(currentUser.getId(), filter, request);
         return ContactResource.transform(page);
     }
 }
