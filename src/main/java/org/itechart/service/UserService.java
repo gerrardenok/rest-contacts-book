@@ -5,7 +5,7 @@ import org.itechart.web.resource.UserResource;
 
 public interface UserService {
 
-    public User createUser(String userName, String email, String password,  Boolean isAdmin);
+    public User createUser(String userName, String email, String password);
 
     public void deleteUser(Long userId);
 

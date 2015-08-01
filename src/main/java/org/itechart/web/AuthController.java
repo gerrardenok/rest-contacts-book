@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
+
 @RestController
 public class AuthController {
 
@@ -22,9 +24,10 @@ public class AuthController {
         return userService.getLoggedIn().toResource();
     }
 
+    @Transactional
     @RequestMapping(value = "/rest/api/auth/registration", method= RequestMethod.POST)
     public UserResource registration(@RequestBody UserRegistrationForm body) {
-        User user = userService.createUser(body.userName, body.email, body.password, false);
+        User user = userService.createUser(body.userName, body.email, body.password);
         return user.toResource();
     }
 

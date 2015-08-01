@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,9 +23,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
+    @Autowired
+    public PasswordEncoder passwordEncoder;
+
     @Override
-    public User createUser(String userName, String email, String password,  Boolean isAdmin) {
-        User user = new User(userName, email, password);
+    public User createUser(String userName, String email, String password) {
+        String encodedPassword = passwordEncoder.encode(password);
+        User user = new User(userName, email, encodedPassword);
         Set<UserRole> roles = new HashSet<UserRole>();
         roles.add(new UserRole(user, "normal_user"));
         user.setUserRoles(roles);
@@ -43,9 +48,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User model, UserResource form) {
+        String encodedPassword = passwordEncoder.encode(form.password);
         model.setUserName(form.userName);
         model.setEmail(form.email);
-        model.setPassword(form.password);
+        model.setPassword(encodedPassword);
         return userRepository.save(model);
     }
 

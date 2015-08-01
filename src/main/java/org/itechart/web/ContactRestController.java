@@ -2,7 +2,6 @@ package org.itechart.web;
 
 import org.itechart.domain.Contact;
 import org.itechart.domain.User;
-import org.itechart.exceptions.EntityNotFoundException;
 import org.itechart.repository.ContactRepository;
 import org.itechart.service.UserService;
 import org.itechart.web.resource.ContactResource;
@@ -48,7 +47,10 @@ public class ContactRestController extends AngularResourceController<Contact, Co
                                       @RequestParam(value="size", defaultValue = "10") String pageSize) {
         Pageable request = new PageRequest(Integer.parseInt(pageNum), Integer.parseInt(pageSize));
         User currentUser = userService.getLoggedIn();
-        Page<Contact> page = contactRepository.findByUserIdAndNameLikeOrTelLikeOrderByModifiedDesc(currentUser.getId(), filter, filter, request);
+        System.out.println("------------------------------------");
+        System.out.println("currentUser.getId():" + currentUser.getId());
+        System.out.println("------------------------------------");
+        Page<Contact> page = contactRepository.findByUserIdAndNameLikeOrderByModifiedDesc(currentUser.getId(), filter, request);
         return ContactResource.transform(page);
     }
 }

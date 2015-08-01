@@ -2,6 +2,8 @@ package org.itechart.domain;
 
 import org.hibernate.validator.constraints.Email;
 import org.itechart.web.resource.UserResource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -94,12 +96,12 @@ public class User extends AngularEntity<User, UserResource> {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public boolean isEnabled() {

@@ -11,6 +11,6 @@ public interface ContactRepository extends CrudRepository<Contact, Long> {
 
     Contact findByIdAndUserId(Long id, Long userId);
 
-    Page<Contact> findByUserIdAndNameLikeOrTelLikeOrderByModifiedDesc(Long userId, String name, String tel, Pageable pageable);
+    Page<Contact> findByUserIdAndNameLikeOrderByModifiedDesc(Long userId, String name, Pageable pageable);
 
 }

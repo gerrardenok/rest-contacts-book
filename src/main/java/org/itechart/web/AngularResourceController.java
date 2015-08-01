@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.transaction.Transactional;
+
 public abstract class AngularResourceController<
         Entity extends AngularEntity<Entity, Resource>,
         Resource extends AngularResource<Entity>,
@@ -27,18 +29,21 @@ public abstract class AngularResourceController<
         return doGet(id);
     }
 
+    @Transactional
     @RequestMapping(method = RequestMethod.POST)
     @Secured("normal_user")
     public Resource create(@RequestBody Resource body) {
         return doCreate(body);
     }
 
+    @Transactional
     @RequestMapping(value = "/{id:[\\d]+}", method = RequestMethod.PUT)
     @Secured("normal_user")
     public Resource update(@PathVariable("id") Long id, @RequestBody Resource body) {
         return doUpdate(id, body);
     }
 
+    @Transactional
     @RequestMapping(value = "/{id:[\\d]+}", method = RequestMethod.DELETE)
     @Secured("normal_user")
     public void delete(@PathVariable("id") Long id) {
