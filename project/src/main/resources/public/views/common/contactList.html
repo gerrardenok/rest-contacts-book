@@ -1,0 +1,51 @@
+<div data-ng-controller="ContactListCtl">
+
+    <div style="margin-bottom: 10px">
+        <button data-ng-if="!concatToSave"
+                data-ng-click="addContact()"
+                class="btn btn-info">Add New Contact</button>
+        <div data-ng-if="concatToSave">
+            <contact-form resource="concatToSave" save-cb="addSave(resource)" cancel-cb="addCancel(resource)" loading="listLoading"></contact-form>
+        </div>
+
+        <div class="form-inline pull-right">
+            <div class="form-group">
+                <input class="form-control"
+                       data-ng-model="filter"
+                       data-ng-change="changeFilter()"
+                       placeholder="Type here ..."
+                       type="text"/>
+            </div>
+        </div>
+    </div>
+
+    <p class="clearfix"></p>
+
+    <div data-ng-if="!listLoading">
+
+        <ul class="list-group">
+
+            <li data-ng-if="contacts.length"
+                data-ng-repeat="contact in contacts" class="list-group-item">
+
+                <div data-ng-include="'/views/common/contactItem.html'"></div>
+
+            </li>
+
+            <li data-ng-if="!contacts.length" class="list-group-item text-center">
+                You have no contacts.
+            </li>
+
+        </ul>
+
+        <div data-ng-if="pagingOptions.totalItems > contacts.length">
+            <pagination total-items="pagingOptions.totalItems" ng-model="pagingOptions.currentPage" ng-change="pageChanged()"></pagination>
+        </div>
+
+    </div>
+
+    <div data-ng-if="listLoading">
+        <div data-ng-include="'/views/common/loader.html'"></div>
+    </div>
+
+</div>
